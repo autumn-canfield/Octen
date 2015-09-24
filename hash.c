@@ -42,9 +42,9 @@ u32 hash_string(const char* str)
 	return hash;
 }
 
-u32 test_for_collisions(char** keys, u16 count, u32 table_size)
+u32 test_for_collisions(char** keys, u32 count, u32 table_size)
 {
-   u16 i, j;
+   u32 i, j;
    for(i = 0; i < count; ++i)
    {
       u32 x = hash_string(keys[i]);
