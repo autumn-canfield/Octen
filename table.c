@@ -4,35 +4,31 @@
 #include "memory.h"
 #include <stdio.h>
 
-static inline u32 probe_count(table t, u32 key, u32 n)
+static inline u32 probe_count(table t, u32 key, u32 i)
 {
    u32 result;
-   if(key%t.length>n)
-      result = t.length+(key%t.length)-n;
+   if((key%t.length) > i)
+      result = t.length+i-(key%t.length);
    else
-      result = n-(key%t.length);
+      result = i-(key%t.length);
    return result;
 }
 
 u64 table_get_value(table t, u32 key)
 {
-   u32 i = key%t.length;
    u32 n;
    table_entry entry;
-
-   u32 max_probe = t.address[t.length].key;
-
-   for(n=0; n<=max_probe; n++)
+   for(n=0; n<t.length; n++)
    {
-      entry = t.address[(i+n)%t.length];
+      u32 i = (key+n)%t.length;
+      entry = t.data[i];
       if(entry.key == 0)
          return 0;
-      if(probe_count(t, entry.key, n) < n)
+      if(probe_count(t, entry.key, i) < n)
          return 0;
       if(entry.key == key)
          return entry.value;
    }
-
    return 0;
 }
 
@@ -43,36 +39,29 @@ void table_set_value(table t, u32 key, u64 value)
 
    for(n=0; n<t.length; n++)
    {
-      u32 i = ((key%t.length)+n)%t.length;
-
-      if(t.address[t.length].key < n) // Update max probe length.
-         t.address[t.length].key = n;
-
-      entry = t.address[i];
-
+      u32 i = (key+n)%t.length;
+      entry = t.data[i];
       if(entry.key == 0)
       {
-         t.address[i].key = key;
-         t.address[i].value = value;
+         t.data[i].key = key;
+         t.data[i].value = value;
          return;
       }
-
       if(entry.key == key)
       {
-         t.address[i].value = value;
+         t.data[i].value = value;
          return;
       }
-
-      if(probe_count(t, entry.key, n) < n)
+      if(probe_count(t, entry.key, i) < n)
       {
          table_entry tmp = entry;
-         t.address[i].key = key;
-         t.address[i].value = value;
+         t.data[i].key = key;
+         t.data[i].value = value;
          key = tmp.key;
          value = tmp.value;
+         n = probe_count(t, entry.key, i);
       }
    }
-
-   error("Error: Too many elements in table! (address=%u)\n", t.address);
+   error("Error: Too many elements in table! (data=%u)\n", t.data);
 }
 

@@ -10,15 +10,18 @@ typedef struct {
 } table_entry;
 
 typedef struct {
-   table_entry *address;
+   table_entry *data;
    u32 length;
 } table;
+
+// It's preferable to use initialize_table when possible, as it avoids needing
+// to allocate at runtime.
+#define initialize_table(size) {.data=(table_entry[(size)]){{0, 0}}, .length=(size)}
 
 static inline table create_table(u32 length)
 {
    table t;
-   // Allocate one extra entry at the end to store the max probe length.
-   t.address = allocate(0, sizeof(table_entry)*(length+1), PAGE_RW);
+   t.data = allocate(0, sizeof(table_entry)*(length), PAGE_RW);
    t.length = length;
    return t;
 }
