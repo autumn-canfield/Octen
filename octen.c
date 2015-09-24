@@ -129,10 +129,6 @@ int main()
          message = create_message(0, CMD_CALL);
          if(!write_channel(program_channel, &message, sizeof(octen_message)))
             error("Client disconnected!\n");
-         if(!read_channel(program_channel, &message, sizeof(octen_message)))
-            error("Client disconnected!\n");
-         if(message_cmd(message) != CMD_ACK)
-            error("Client didn't acknowledge message! Replied with cmd=%u.\n", message_cmd(message));
          if(!write_channel(program_channel, &program_function, sizeof(void*)))
             error("Client disconnected!\n");
          u64 result;
@@ -145,17 +141,13 @@ int main()
       eval_string(input_buffer, compile_buffer);
       message = create_message(0x1000, CMD_SET_EXEC);
       if(!write_channel(program_channel, &message, sizeof(octen_message)))
-         error("Client disconnected!(1)\n");
-      if(!read_channel(program_channel, &message, sizeof(octen_message)))
-         error("Client disconnected!(2)\n");
+         error("Client disconnected!\n");
       if(!write_channel(program_channel, &program_function, sizeof(void*)))
-         error("Client disconnected!(3)\n");
-      if(!read_channel(program_channel, &message, sizeof(octen_message)))
-         error("Client disconnected!(4)\n");
+         error("Client disconnected!\n");
       if(!write_channel(program_channel, compile_buffer, 0x1000))
-         error("Client disconnected!(5)\n");
+         error("Client disconnected!\n");
       if(!read_channel(program_channel, &message, sizeof(octen_message)))
-         error("Client disconnected!(6)\n");
+         error("Client disconnected!\n");
    }
 
    disconnect_channel(program_channel);

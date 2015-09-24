@@ -54,21 +54,15 @@ bool update_code()
             return false;
          break;
       case CMD_SET:
-         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
-            return false;
          if(!read_channel(compiler_channel, &address, sizeof(void*)))
-            return false;
-         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
             return false;
          if(!read_channel(compiler_channel, address, size))
             return false;
+         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
+            return false;
          break;
       case CMD_SET_EXEC:
-         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
-            return false;
          if(!read_channel(compiler_channel, &address, sizeof(void*)))
-            return false;
-         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
             return false;
          change_protection(address, size, PAGE_RW);
          if(!read_channel(compiler_channel, address, size))
@@ -81,8 +75,6 @@ bool update_code()
             return false;
          break;
       case CMD_GET:
-         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
-            return false;
          if(!read_channel(compiler_channel, &address, sizeof(void*)))
             return false;
          change_protection(address, size, PAGE_RW);
@@ -91,8 +83,6 @@ bool update_code()
          change_protection(address, size, PAGE_RX);
          break;
       case CMD_GET_EXEC:
-         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
-            return false;
          if(!read_channel(compiler_channel, &address, sizeof(void*)))
             return false;
          if(!write_channel(compiler_channel, address, size))
@@ -102,8 +92,6 @@ bool update_code()
          printf("CMD_EVAL\n");
          break;
       case CMD_CALL:
-         if(!write_channel(compiler_channel, &ack, sizeof(octen_message)))
-            return false;
          if(!read_channel(compiler_channel, &address, sizeof(void*)))
             return false;
          u32 (*function)() = (u32 (*)())address;
