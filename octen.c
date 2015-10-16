@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdio_ext.h>
 #include <string.h>
 #include "types.h"
 #include "error.h"
@@ -90,6 +89,10 @@ static const char *program_channel_name = ".octen_program_channel";
 
 channel program_channel;
 
+#ifndef OS_WINDOWS
+#include <stdio_ext.h>
+#endif
+
 //,b8 ,2a ,00 ,00 ,00 ,c3
 int main()
 {
@@ -117,8 +120,11 @@ int main()
    {
       char input_buffer[256];
       printf("* ");
-      //fflush(stdin);
+#ifdef OS_WINDOWS
+      fflush(stdin);
+#else
       __fpurge(stdin);
+#endif
       scanf("%255[^\n]", input_buffer);
 
       if(strcmp("quit", input_buffer)==0)
