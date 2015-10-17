@@ -1,4 +1,3 @@
-#define __USE_MINGW_ANSI_STDIO 1
 #include <stdio.h>
 #include "types.h"
 #include "os.h"
