@@ -1,10 +1,10 @@
 CC=gcc
 CFLAGS= -c -Iheaders -Wall -Wextra -std=gnu99 -D DEVELOP
 OFILES = hex.o hash.o table.o memory.o octen.o ipc.o
-LIBFILES = table.o ipc.o memory.o library.o
+LIBFILES = table.o ipc.o memory.o listener.o
 LDFLAGS= #-lws2_32
-LIBNAME = library/lib/libocten.a
-EXAMPLEFLAGS = -Llibrary/lib -Ilibrary/include -locten
+LIBNAME = listener/lib/libocten.a
+EXAMPLEFLAGS = -Llistener/lib -Ilistener/include -locten
 ifeq ($(OS),Windows_NT)
 	ONAME = octen.exe
 	EXAMPLENAME = example.exe
@@ -20,11 +20,11 @@ all:
 	$(CC) $(CFLAGS) memory.c
 	$(CC) $(CFLAGS) ipc.c
 	$(CC) $(CFLAGS) octen.c
-	$(CC) $(CFLAGS) library.c
+	$(CC) $(CFLAGS) listener.c
 	$(CC) $(OFILES) $(LDFLAGS) -o $(ONAME)
-	mkdir -p library/lib
+	mkdir -p listener/lib
 	ar rcs $(LIBNAME) $(LIBFILES)
-	$(CC) library/example.c $(EXAMPLEFLAGS) -o $(EXAMPLENAME)
+	$(CC) example.c $(EXAMPLEFLAGS) -o $(EXAMPLENAME)
 
 clean:
 	rm -rf *.o

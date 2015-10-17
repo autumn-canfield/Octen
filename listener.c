@@ -5,7 +5,7 @@
 #include "messages.h"
 #include "ipc.h"
 #include "memory.h"
-#include "library/include/octen.h"
+#include "listener/include/listener.h"
 
 #ifdef OS_WINDOWS
 static const char *compiler_channel_name = "\\\\.\\pipe\\octen_program_channel";
