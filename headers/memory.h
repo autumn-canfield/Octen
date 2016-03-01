@@ -1,6 +1,4 @@
-#ifndef _MEMORY_H
-#define _MEMORY_H
-
+#pragma once
 #include "types.h"
 #include "os.h"
 
@@ -31,4 +29,3 @@ bool deallocate(void *address, size_t size);
 bool change_protection(void *address, u32 size, i32 protection);
 u32 page_size();
 
-#endif // _MEMORY_H

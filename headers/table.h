@@ -1,6 +1,4 @@
-#ifndef _TABLE_H
-#define _TABLE_H
-
+#pragma once
 #include "types.h"
 #include "memory.h"
 
@@ -28,4 +26,3 @@ static inline table create_table(u32 length)
 u64 table_get_value(table t, u32 key);
 void table_set_value(table t, u32 key, u64 value);
 
-#endif // _TABLE_H

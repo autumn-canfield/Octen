@@ -1,6 +1,4 @@
-#ifndef _ASSERT_H
-#define _ASSERT_H
-
+#pragma once
 #include<stdio.h>
 #include<stdlib.h>
 #if defined DEBUG || defined DEVELOP
@@ -23,6 +21,4 @@
    #define assert(...) ((void) 0)
    #define assert_once(...) ((void) 0)
 #endif
-
-#endif // _ASSERT_H
 

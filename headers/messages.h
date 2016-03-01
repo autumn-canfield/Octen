@@ -1,6 +1,4 @@
-#ifndef _MESSAGES_H
-#define _MESSAGES_H
-
+#pragma once
 #include "types.h"
 
 typedef u32 octen_message;
@@ -47,4 +45,3 @@ static inline u32 create_message(u32 size, u8 cmd)
    return (size<<12) | cmd;
 }
 
-#endif // _MESSAGES_H
