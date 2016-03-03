@@ -1,6 +1,4 @@
-#ifndef _IPC_H
-#define _IPC_H
-
+#pragma once
 #include "types.h"
 #include "os.h"
 
@@ -24,4 +22,3 @@ bool write_channel(channel c, void *buffer, u32 buffer_length);
 
 u32 bytes_in_channel(channel c);
 
-#endif // _IPC_H

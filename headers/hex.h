@@ -1,6 +1,4 @@
-#ifndef _HEX_H
-#define _HEX_H
-
+#pragma once
 #include"types.h"
 
 u8 parse_nibble(char n);
@@ -10,4 +8,3 @@ u32 parse_hex_u32(char *str);
 u64 parse_hex_u64(char *str);
 bool is_valid_hex_string(char *str);
 
-#endif // _HEX_H

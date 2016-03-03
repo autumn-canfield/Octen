@@ -1,12 +1,11 @@
-#ifndef _OCTEN_H
-#define _OCTEN_H
-
+#pragma once
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #ifndef __cplusplus
-#ifndef _TYPES_H
+#ifndef _bool_defined
+#define _bool_defined
 typedef enum{ false, true } bool;
 #endif
 #endif
@@ -19,4 +18,3 @@ void disconnect_from_compiler();
 }
 #endif
 
-#endif // _OCTEN_H
